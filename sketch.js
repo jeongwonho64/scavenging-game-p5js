@@ -237,4 +237,126 @@ function draw() {
     text(score, windowHeight / 20, (windowHeight * 19) / 20);
     pop();
   } 
+  else if (screen == "game over") {
+    background(244);
+    push();
+    fill("black");
+    noStroke();
+    textAlign(CENTER);
+    textSize(windowHeight / 7);
+    text("GAME OVER!", windowWidth / 2, windowHeight / 5);
+    if (score > 0) {
+      text("Score: " + score, windowWidth / 2, windowHeight / 2);
+    } else {
+      push();
+      textSize(windowHeight / 28);
+      text(
+        "You were unable to find all the collectibles within the time limit",
+        windowWidth / 2,
+        windowHeight / 2
+      );
+      pop();
+    }
+
+    if (
+      mouseX > windowWidth / 8 &&
+      mouseX < (windowWidth * 3) / 8 &&
+      mouseY > (windowHeight * 13) / 20 &&
+      mouseY < (windowHeight * 17) / 20
+    ) {
+      fills = ["rgb(35,0,101)", "rgb(255,254,161)", "rgb(161,255,161)"];
+    } else {
+      fills = ["rgb(161,255,161)", "rgb(35,0,101)", "rgb(255,254,161)"];
+    }
+
+    if (
+      mouseX > (windowWidth * 5) / 8 &&
+      mouseX < (windowWidth * 7) / 8 &&
+      mouseY > (windowHeight * 13) / 20 &&
+      mouseY < (windowHeight * 17) / 20
+    ) {
+      fills2 = ["rgb(35,0,101)", "rgb(255,254,161)", "rgb(161,255,161)"];
+    } else {
+      fills2 = ["rgb(161,255,161)", "rgb(35,0,101)", "rgb(255,254,161)"];
+    }
+
+    push();
+    rectMode(CENTER);
+    strokeWeight(windowHeight / 96);
+    fill(fills[0]);
+    stroke(fills[2]);
+    rect(
+      windowWidth / 4,
+      (windowHeight * 3) / 4,
+      windowWidth / 4,
+      windowHeight / 10
+    );
+
+    fill(fills2[0]);
+    stroke(fills2[2]);
+    rect(
+      (windowWidth * 3) / 4,
+      (windowHeight * 3) / 4,
+      windowWidth / 4,
+      windowHeight / 10
+    );
+    pop();
+
+    textSize(windowHeight / 14);
+
+    fill(fills[1]);
+    text("Restart", windowWidth / 4, (windowHeight * 31) / 40);
+
+    textSize(windowHeight / 16);
+    fill(fills2[1]);
+    text("Try Again", (windowWidth * 3) / 4, (windowHeight * 31) / 40);
+    pop();
+  }
+  if (screen == "game") {
+    particle.take(collectibles);
+    walls = [];
+    walls.push(
+      new Wall(
+        windowWidth / 2,
+        windowHeight / 8,
+        windowWidth / 2,
+        (windowHeight * 5) / 8
+      )
+    );
+    walls.push(
+      new Wall(
+        (windowWidth * 3) / 16,
+        (windowHeight * 4) / 16,
+        (windowWidth * 5) / 16,
+        (windowHeight * 2) / 16
+      )
+    );
+    walls.push(
+      new Wall(
+        (windowWidth * 7) / 16,
+        (windowHeight * 4) / 16,
+        (windowWidth * 9) / 16,
+        (windowHeight * 2) / 16
+      )
+    );
+    walls.push(
+      new Wall(
+        (windowWidth * 7) / 16,
+        (windowHeight * 14) / 16,
+        (windowWidth * 6) / 16,
+        (windowHeight * 7) / 16
+      )
+    );
+
+    walls.push(new Wall(0, 0, 0, width));
+    walls.push(new Wall(width, width, 0, width));
+    walls.push(new Wall(width, width, width, 0));
+    walls.push(new Wall(0, 0, width, 0));
+
+    for (let collectible of collectibles) {
+      for (let wallo of collectible.lines) {
+        walls.push(wallo);
+      }
+    }
+  }
 }
