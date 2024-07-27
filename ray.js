@@ -15,7 +15,6 @@ class Ray {
 
     // Check for intersection with a wall
     cast(wall) {
-        //print(wall.a.x)
         const x1 = wall.a.x;
         const y1 = wall.a.y;
         const x2 = wall.b.x;
