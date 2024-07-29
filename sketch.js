@@ -195,7 +195,7 @@ function draw() {
     );
 
     pop();
-  } 
+  }
   else if (screen == "game") {
     background(0);
     score--;
@@ -236,7 +236,7 @@ function draw() {
     text(particle.score, windowHeight / 20, windowHeight / 20);
     text(score, windowHeight / 20, (windowHeight * 19) / 20);
     pop();
-  } 
+  }
   else if (screen == "game over") {
     background(244);
     push();
@@ -359,4 +359,55 @@ function draw() {
       }
     }
   }
+}
+
+function mouseClicked() {
+  if (screen == 'intro' && fills[0] == 'rgb(35,0,101)') {
+    screen = 'game'
+  }
+  
+  if (screen == 'game over') {
+    collectibles = []
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    collectibles.push(new Collectible(windowWidth*random(randoms)/16, windowHeight*random(randoms)/16, windowHeight/80))
+    
+    
+    
+    walls = []
+    walls.push(new Wall(0, 0, 0, width));
+    walls.push(new Wall(width, width, 0, width));
+    walls.push(new Wall(width, width, width, 0));
+    walls.push(new Wall(0, 0, width, 0));
+    
+    walls.push(new Wall(windowWidth/2, windowHeight/8, windowWidth/2, windowHeight*5/8));
+    walls.push(new Wall(windowWidth*3/16, windowHeight*4/16, windowWidth*5/16, windowHeight*2/16));
+    walls.push(new Wall(windowWidth*7/16, windowHeight*4/16, windowWidth*9/16, windowHeight*2/16));
+    walls.push(new Wall(windowWidth*7/16, windowHeight*14/16, windowWidth*6/16, windowHeight*7/16));
+    
+    for (let collectible of collectibles) {
+      for (let wallo of collectible.lines) {
+        walls.push(wallo)
+      }
+    }
+    
+    particle.reset(100, 200, [200, 255, 200])
+    
+    if (fills2[0] == 'rgb(35,0,101)') {
+      screen = 'game'
+      score = max
+    }
+    if (fills[0] == 'rgb(35,0,101)') {
+      screen = 'intro'
+    }
+  }
+  
+
 }
